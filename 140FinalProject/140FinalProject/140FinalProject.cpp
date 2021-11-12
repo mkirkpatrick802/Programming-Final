@@ -24,17 +24,25 @@ database for the purpose of future plagiarism checking)
 #include <iomanip>
 #include <sstream>
 #include <cmath>
+#include <fstream>
+#include <string>
 using namespace std;
 
 int mainScreen();
 void createNewAcount();
 void login();
 void quit();
-void tellerLogin();
+bool tellerLogin();
+
 
 int main()
 {
     int menuSelection = 0;
+    do
+    {
+        bool tellerLogin();
+    } while (tellerLogin() == false);
+    
 
     do 
     {
@@ -100,4 +108,24 @@ void login()
 void quit()
 {
     cout << "Exiting Program" << endl;
+}
+
+bool tellerLogin()
+{
+    string tellerIdInput;
+    string tellerPassInput;
+
+    string tellerIdActual;
+    string tellerIdPassActual;
+
+    ifstream fin;
+    fin.open("tellers.dat");
+    
+    if (!fin.is_open())
+    {
+        cout << "Teller's file cannot be found" << endl;
+        return false;
+    }
+
+
 }
