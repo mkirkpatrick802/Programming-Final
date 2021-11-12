@@ -1,58 +1,89 @@
+/*
+Author: Michael Kirkpatrick, John Groton
+Class : CSI-140-01/02 : Intro to Programming
+Assignment : Module-06-Assignment 2A
+Date Assigned : 11/8/21
+Due Date : 12/6/21 11:59PM
+
+Description :
+You have been hired as the lead programmer for a bank. Your immediate task is to create a new system for the bank tellers for their daily tasks. Your system must allow the tellers to perform the following tasks. However, in order to perform these tasks, the bank teller must be logging into the system first.
+
+Certification of Authenticity :
+
+I certify that this is entirely my own work, except where I have given
+fully-documented references to the work of others. I understand the
+definition and consequences of plagiarism and acknowledge that the assessor
+of this assignment may, for the purpose of assessing this assignment:
+- Reproduce this assignment and provide a copy to another member of
+academic staff; and/or
+- Communicate a copy of this assignment to a plagiarism checking
+service (which may then retain a copy of this assignment on its
+database for the purpose of future plagiarism checking)
+*/
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-
+#include <cmath>
 using namespace std;
 
-int const MAIN_MENU_WIDTH = 10;
-
-void makeLogInScreen();
+int mainScreen();
 void createNewAcount();
-void logIn();
+void login();
 void quit();
+void tellerLogin();
 
 int main()
 {
-    makeLogInScreen();
+    int menuSelection = 0;
 
+    do 
+    {
+        menuSelection = mainScreen();
+    } while (menuSelection < 1 || menuSelection > 3);
+
+    switch (menuSelection) // Menu Selection
+    {
+        case 1:
+            createNewAcount();
+            break;
+        case 2:
+            login();
+            break;
+        case 3:
+            quit();
+            break;
+        default:
+            break;
+    }
 }
 
 
-void makeLogInScreen()
+int mainScreen()
 {
+    int const MAIN_MENU_WIDTH = 10;
     int tellerInput;
 
+    cout << endl;
     cout << "Hello and Welcome to Lake Champlain Banking teller system!" << endl; 
     cout << endl;
+
+    cout << "Please select an option." << endl;
+    cout << setw(MAIN_MENU_WIDTH) << left << "1: Create new acount" << endl;
+    cout << setw(MAIN_MENU_WIDTH) << left << "2: Log into existing acount" << endl;
+    cout << setw(MAIN_MENU_WIDTH) << left << "3: Quit" << endl;
+    cout << endl;
     
-    do 
+    cin >> tellerInput;
+
+    while (cin.fail()) // Makes Sure That the input is an Int
     {
-        cout << "Please select an option." << endl;
-        cout << setw(MAIN_MENU_WIDTH) << left << "1: Create new acount" << endl;
-        cout << setw(MAIN_MENU_WIDTH) << left << "2: log into existing acount" << endl;
-        cout << setw(MAIN_MENU_WIDTH) << left << "3: quit" << endl;
+        cin.clear();
+        cin.ignore();
         cout << endl;
+        cout << "Please Enter Correct Input" << endl;
+    }
 
-        cin >> tellerInput;
-
-        if (tellerInput == 1)
-        {
-            createNewAcount();
-        }
-        else if (tellerInput == 2)
-        {
-            logIn();
-        }
-        else if (tellerInput == 3)
-        {
-            quit();
-        }
-        else
-        {
-            cout << "Error, bad input" << endl;
-            cout << endl;
-        } 
-    } while (tellerInput < 1 || tellerInput > 3);
+    return tellerInput;
 }
     
 
@@ -61,12 +92,12 @@ void createNewAcount()
 
 }
 
-void logIn()
+void login()
 {
 
 }
 
 void quit()
 {
-    cout << "exiting program" << endl;
+    cout << "Exiting Program" << endl;
 }
