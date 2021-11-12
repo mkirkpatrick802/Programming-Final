@@ -127,5 +127,8 @@ bool tellerLogin()
         return false;
     }
 
+    getline(tellerIdActual, fin);
+    getline(tellerIdPassActual, fin);
 
+    cout << tellerIdActual;
 }
