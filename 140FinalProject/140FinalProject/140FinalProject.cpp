@@ -127,8 +127,22 @@ bool tellerLogin()
         return false;
     }
 
-    getline(tellerIdActual, fin);
-    getline(tellerIdPassActual, fin);
+    fin >> tellerIdActual;
+    fin >> tellerIdPassActual;
 
-    cout << tellerIdActual;
+    cout << "Enter teller ID: ";
+    cin >> tellerIdInput;
+
+    cout << "Enter teller Password: ";
+    cin >> tellerPassInput;
+
+    if (tellerIdInput == tellerIdActual && tellerPassInput == tellerIdPassActual)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
 }
