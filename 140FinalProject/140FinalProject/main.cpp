@@ -9,13 +9,18 @@ int main()
     } while (tellerLogin() == false);
     
 
-    do 
-    {
-        menuSelection = mainScreen();
-    } while (menuSelection < 1 || menuSelection > 3);
+    
 
-    switch (menuSelection) // Menu Selection
+    //put welcome message in a different function
+    while (menuSelection != 3)
     {
+        do
+        {
+            menuSelection = mainScreen();
+        } while (menuSelection < 1 || menuSelection > 3);
+
+        switch (menuSelection) // Menu Selection
+        {
         case 1:
             createNewAccount();
             break;
@@ -27,5 +32,7 @@ int main()
             break;
         default:
             break;
+        }
     }
+    
 }
