@@ -1,15 +1,19 @@
 #include "bank.h"
 
+void welcomeMessage()
+{
+    cout << endl;
+    cout << "Beglückwünschung" << endl;
+    cout << "Hello and Welcome to Lake Champlain Banking teller system!" << endl;
+    cout << endl;
+}
+
 int mainScreen()
 {
     int const MAIN_MENU_WIDTH = 10;
     int tellerInput;
 
     cout << endl;
-    cout << "Beglückwünschung" << endl;
-    cout << "Hello and Welcome to Lake Champlain Banking teller system!" << endl;
-    cout << endl;
-
     cout << "Please select an option." << endl;
     cout << setw(MAIN_MENU_WIDTH) << left << "1: Create new account" << endl;
     cout << setw(MAIN_MENU_WIDTH) << left << "2: Log into existing account" << endl;
@@ -72,6 +76,22 @@ void createNewAccount()
 
 void login()
 {
+    string soccialSecNum;
+
+    cout << "Please enter customer's Social Secrity Number: ";
+    getline(cin, soccialSecNum);
+
+    ifstream fin;
+    fin.open("accounts.dat");
+    if (!fin.is_open())
+    {
+        cout << "Cannot find acount" << endl;
+    }
+
+
+
+    
+
 
 }
 

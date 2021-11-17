@@ -8,10 +8,9 @@ int main()
         bool tellerLogin();
     } while (tellerLogin() == false);
     
+    welcomeMessage();
+   
 
-    
-
-    //put welcome message in a different function
     while (menuSelection != 3)
     {
         do

@@ -31,6 +31,7 @@ database for the purpose of future plagiarism checking)
 #include <string>
 using namespace std;
 
+void welcomeMessage();
 int mainScreen();
 void createNewAccount();
 void login();
