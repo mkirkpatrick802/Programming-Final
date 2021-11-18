@@ -78,14 +78,14 @@ void login()
 {
     string soccialSecNum;
 
-    cout << "Please enter customer's Social Secrity Number: ";
+    cout << "Please enter acount number: ";
     getline(cin, soccialSecNum);
 
     ifstream fin;
     fin.open("accounts.dat");
     if (!fin.is_open())
     {
-        cout << "Cannot find acount" << endl;
+        cout << "Cannot find acounts file" << endl;
     }
 
 
