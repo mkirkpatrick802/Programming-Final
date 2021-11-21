@@ -76,17 +76,123 @@ void createNewAccount()
 
 void login()
 {
-    string soccialSecNum;
+    string acountNum;
 
     cout << "Please enter acount number: ";
-    getline(cin, soccialSecNum);
+    cin >> acountNum;
+    cin.ignore();
 
     ifstream fin;
-    fin.open("accounts.dat");
+    fin.open(acountNum + ".dat");
     if (!fin.is_open())
     {
-        cout << "Cannot find acounts file" << endl;
+        cout << "Cannot find acount file" << endl;
     }
+    else
+    {
+        int input;
+
+        do
+        {
+            cout << "Login succesfull, please select an option" << endl;
+            cout << endl;
+            cout << "1: Deposit" << endl;
+            cout << "2: Withdraw" << endl;
+            cout << "3: Update Info" << endl;
+            cout << "4: Serach for Info" << endl;
+            cout << "5: Check Balance" << endl;
+            cout << "6: Delete acount" << endl;
+            cout << "7: Quit" << endl;
+            cout << endl;
+            
+            cin >> input;
+
+        } while (input < 1 || input > 7);
+
+        if (input == 1)
+        {
+            float depositAmount;
+
+            cout << "How much do you wish to deposit?" << endl;
+            cin >> depositAmount;
+
+        }
+        else if (input == 2)
+        {
+            float withdrawAmount;
+
+            cout << "How much do you wish to withdraw?" << endl;
+            cin >> withdrawAmount;
+
+        }
+        else if (input == 3)
+        {
+            int option;
+
+            cout << "What info do you want to change?" << endl;
+            cout << endl;
+            
+            cout << "1: Social Security Number" << endl;
+            cout << "2: Name" << endl;
+            cout << "3: Address" << endl;
+            cout << "4: Phone Number" << endl;
+            cout << "5: Quit" << endl;
+            cout << endl;
+
+            cin >> option;
+        }
+        else if (input == 4)
+        {
+            int option;
+
+            cout << "What info do you wish to search for?" << endl;
+            cout << endl;
+
+            cout << "1: Social Security Number" << endl;
+            cout << "2: Name" << endl;
+            cout << "3: Address" << endl;
+            cout << "4: Phone Number" << endl;
+            cout << "5: Quit" << endl;
+            cout << endl;
+
+            cin >> option;
+
+        }
+        else if (input == 5)
+        {
+            float balance;
+
+            fin >> balance;
+
+            cout << "Your balance is " << balance << endl;
+        }
+        else if (input == 6)
+        {
+            string option;
+
+            do
+            {
+                cout << "Are you sure you wish to delete you acount? y for yes n for no." << endl;
+                cin >> option;
+            } while (option != "y" || option != "Y" || option != "n" || option != "N");
+            
+
+            if (option == "y" || option == "Y")
+            {
+
+            }
+            else if (option != "n" || option != "N")
+            {
+
+            }
+
+        }
+        else if (input == 7)
+        {
+            quit();
+        }
+    }
+
 
 
 
