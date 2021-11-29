@@ -92,6 +92,9 @@ void login()
     {
         int input;
 
+        float balance;
+        fin >> balance;
+
         do
         {
             cout << "Login succesfull, please select an option" << endl;
@@ -113,8 +116,21 @@ void login()
         {
             float depositAmount;
 
+            ofstream fout;
+            fout.open(acountNum + ".dat");
+            
+            if (!fout.is_open())
+            {
+                cout << "Failed to find deposit file" << endl;
+            }
+
             cout << "How much do you wish to deposit?" << endl;
             cin >> depositAmount;
+
+            fout << balance + depositAmount << endl;
+
+            cout << "Your balance is now " << balance << endl;
+
 
         }
         else if (input == 2)
@@ -123,6 +139,8 @@ void login()
 
             cout << "How much do you wish to withdraw?" << endl;
             cin >> withdrawAmount;
+
+            
 
         }
         else if (input == 3)
@@ -160,10 +178,6 @@ void login()
         }
         else if (input == 5)
         {
-            float balance;
-
-            fin >> balance;
-
             cout << "Your balance is " << balance << endl;
         }
         else if (input == 6)
@@ -192,13 +206,6 @@ void login()
             quit();
         }
     }
-
-
-
-
-    
-
-
 }
 
 void quit()
