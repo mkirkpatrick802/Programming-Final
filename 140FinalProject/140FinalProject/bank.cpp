@@ -114,34 +114,11 @@ void login()
 
         if (input == 1)
         {
-            float depositAmount;
-
-            ofstream fout;
-            fout.open(acountNum + ".dat");
-            
-            if (!fout.is_open())
-            {
-                cout << "Failed to find deposit file" << endl;
-            }
-
-            cout << "How much do you wish to deposit?" << endl;
-            cin >> depositAmount;
-
-            fout << balance + depositAmount << endl;
-
-            cout << "Your balance is now " << balance << endl;
-
-
+            deposit(balance, acountNum);
         }
         else if (input == 2)
         {
-            float withdrawAmount;
-
-            cout << "How much do you wish to withdraw?" << endl;
-            cin >> withdrawAmount;
-
-            
-
+            withdraw(balance, acountNum);
         }
         else if (input == 3)
         {
@@ -312,4 +289,48 @@ int convertStrToInt(string stringValue)
     str >> intValue;
 
     return intValue;
+}
+
+void deposit(float & balance, string acountNum)
+{
+    float depositAmount;
+
+    ofstream fout;
+    fout.open(acountNum + ".dat");
+
+    if (!fout.is_open())
+    {
+        cout << "Failed to find deposit file" << endl;
+    }
+
+    cout << "How much do you wish to deposit?" << endl;
+    cin >> depositAmount;
+
+    balance = balance + depositAmount;
+    fout << balance + depositAmount << endl;
+
+    cout << "Your balance is now " << balance << endl;
+}
+
+void withdraw(float & balance, string acountNum)
+{
+    float withdrawAmount;
+
+    ofstream fout;
+    fout.open(acountNum + ".dat");
+
+    if (!fout.is_open())
+    {
+        cout << "Failed to find deposit file" << endl;
+    }
+
+    cout << "How much do you wish to withdraw?" << endl;
+    cin >> withdrawAmount;
+
+    if (withdrawAmount < balance)
+    {
+        fout << balance - withdrawAmount << endl;
+        balance = balance - withdrawAmount;
+        cout << "Your balance is now " << balance << endl;
+    }
 }
