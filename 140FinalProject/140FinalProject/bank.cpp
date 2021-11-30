@@ -1,5 +1,46 @@
 #include "bank.h"
 
+///////////////////////
+//////// START ////////
+///////////////////////
+
+bool tellerLogin()
+{
+    string tellerIdInput;
+    string tellerPassInput;
+
+    string tellerIdActual;
+    string tellerIdPassActual;
+
+    ifstream fin;
+    fin.open("tellers.dat");
+    if (!fin.is_open())
+    {
+        cout << "Teller's file cannot be found" << endl;
+        return false;
+    }
+
+    fin >> tellerIdActual;
+    fin >> tellerIdPassActual;
+
+    cout << "Enter teller ID: ";
+    cin >> tellerIdInput;
+
+    cout << "Enter teller Password: ";
+    cin >> tellerPassInput;
+
+    if (tellerIdInput == tellerIdActual && tellerPassInput == tellerIdPassActual)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+    fin.close();
+}
+
 void welcomeMessage()
 {
     cout << endl;
@@ -33,6 +74,9 @@ int mainScreen()
     return tellerInput;
 }
 
+/////////////////////////////////
+//////// Create Accounts ////////
+/////////////////////////////////
 
 void createNewAccount()
 {
@@ -74,64 +118,92 @@ void createNewAccount()
     fout.close();
 }
 
-void login()
+//Fix This
+////////////////////////////////////////////////////////////Broken////////////////
+int newAccountNumber()
 {
-    string acountNum;
+    int num = 0;
+    string lastAccount[6];
+    int accountNumber = 1;
+    const int STARTING_BALANCE = 0;
 
-    cout << "Please enter acount number: ";
-    cin >> acountNum;
+    ifstream fin;
+    fin.open("accounts.dat");
+    if (!fin.is_open())
+    {
+        cout << "Account file cannot be found" << endl;
+        return 1;
+    }
+
+    int i;
+    for (i = 0; i < numberOfLines("accounts.dat"); i++)
+    {
+        string line;
+        getline(fin, line);
+        if (convertStrToInt(line) != 0)
+        {
+            int j;
+            for (j = 0; j < 4; j++) 
+            {
+                lastAccount[j] = convertStrToInt(line);
+            }
+        }
+    }
+    if (lastAccount[0].empty()) 
+    {
+        accountNumber = 1;
+    }
+    else 
+    {
+        accountNumber = convertStrToInt(lastAccount[0]);
+    }
+
+    ofstream fout;
+    fout.open(to_string(accountNumber) + ".dat");
+    fout << STARTING_BALANCE;
+
+    fout.close();
+    fin.close();
+    return accountNumber;
+}
+
+int numberOfLines(string fileName)
+{
+    ifstream fin;
+    fin.open(fileName);
+
+    int numLines = 0;
+    string unused;
+    while (getline(fin, unused))
+    {
+        ++numLines;
+    }
+
+    return numLines;
+}
+
+///////////////////////////////////
+//////// Login To Account ////////
+//////////////////////////////////
+
+
+int login()
+{
+    string accountNum;
+
+    cout << "Please enter account number: ";
+    cin >> accountNum;
     cin.ignore();
 
     ifstream fin;
-    fin.open(acountNum + ".dat");
+    fin.open(accountNum + ".dat");
     if (!fin.is_open())
     {
-        cout << "Cannot find acount file" << endl;
+        cout << "Cannot find account file" << endl;
+        return 0;
     }
-    else
-    {
-        int input;
 
-        float balance;
-        fin >> balance;
-
-        do
-        {
-            displayOptions();
-            
-            cin >> input;
-
-        } while (input < 1 || input > 7);
-
-        if (input == 1)
-        {
-            deposit(balance, acountNum);
-        }
-        else if (input == 2)
-        {
-            withdraw(balance, acountNum);
-        }
-        else if (input == 3)
-        {
-            void updateInfo();
-        }
-        else if (input == 4)
-        {
-            void searchInfo();
-        }
-        else if (input == 5)
-        {
-            checkBalance(balance);
-        }
-        else if (input == 6)
-        {
-            deleteAcount();
-        }
-        else if (input == 7)
-        {
-            quit();
-        }
-    }
+    return convertStrToInt(accountNum);
 }
 
 void displayOptions()
@@ -148,118 +220,12 @@ void displayOptions()
     cout << endl;
 }
 
-void quit()
-{
-    cout << "Exiting Program" << endl;
-}
-
-bool tellerLogin()
-{
-    string tellerIdInput;
-    string tellerPassInput;
-
-    string tellerIdActual;
-    string tellerIdPassActual;
-
-    ifstream fin;
-    fin.open("tellers.dat");
-    if (!fin.is_open())
-    {
-        cout << "Teller's file cannot be found" << endl;
-        return false;
-    }
-
-    fin >> tellerIdActual;
-    fin >> tellerIdPassActual;
-
-    cout << "Enter teller ID: ";
-    cin >> tellerIdInput;
-
-    cout << "Enter teller Password: ";
-    cin >> tellerPassInput;
-
-    if (tellerIdInput == tellerIdActual && tellerPassInput == tellerIdPassActual)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
-    fin.close();
-}
-
-int newAccountNumber()
-{
-    int accountNumber = 1;
-
-    ifstream fin;
-    fin.open("accounts.dat");
-    if (!fin.is_open())
-    {
-        cout << "Account file cannot be found" << endl;
-        return 1;
-    }
-
-    int i;
-    for (i = 1; i <= numberOfLines("accounts.dat"); i++)
-    {
-        string line;
-        getline(fin, line);
-        if (convertStrToInt(line) != 0)
-        {
-            accountNumber = convertStrToInt(line) + 1;
-        }
-    }
-    ofstream fout;
-    fout.open(to_string(accountNumber) + ".dat");
-    fout.close();
-    fin.close();
-    return accountNumber;
-}
-
-int numberOfLines(string fileName) 
-{
-    ifstream fin;
-    fin.open(fileName);
-
-    int numLines = 0;
-    string unused;
-    while (getline(fin, unused))
-    {
-        ++numLines;
-    }
-
-    return numLines;
-}
-
-int convertStrToInt(string stringValue)
-{
-    int intValue;
-    stringstream str;
-
-    for (char i : stringValue) 
-    {
-        if (isdigit(i) == 0) 
-        {
-            return 0;
-        }
-    }
-
-    str << stringValue;
-
-    str >> intValue;
-
-    return intValue;
-}
-
-void deposit(float & balance, string acountNum)
+void deposit(float balance, int accountNum)
 {
     float depositAmount;
 
     ofstream fout;
-    fout.open(acountNum + ".dat");
+    fout.open(accountNum + ".dat");
 
     if (!fout.is_open())
     {
@@ -270,17 +236,17 @@ void deposit(float & balance, string acountNum)
     cin >> depositAmount;
 
     balance = balance + depositAmount;
-    fout << balance + depositAmount << endl;
+    fout << balance << endl;
 
     cout << "Your balance is now " << balance << endl;
 }
 
-void withdraw(float & balance, string acountNum)
+void withdraw(float balance, int accountNum)
 {
     float withdrawAmount;
 
     ofstream fout;
-    fout.open(acountNum + ".dat");
+    fout.open(accountNum + ".dat");
 
     if (!fout.is_open())
     {
@@ -292,8 +258,8 @@ void withdraw(float & balance, string acountNum)
 
     if (withdrawAmount < balance)
     {
-        fout << balance - withdrawAmount << endl;
         balance = balance - withdrawAmount;
+        fout << balance << endl;
         cout << "Your balance is now " << balance << endl;
     }
 }
@@ -332,12 +298,24 @@ void searchInfo()
     cin >> option;
 }
 
-void checkBalance(float balance)
+float checkBalance(int accountNum)
 {
+    float balance = 0;
+    ifstream fin;
+    fin.open(accountNum + ".dat");
+
+    if (!fin.is_open())
+    {
+        cout << "Failed to find deposit file" << endl;
+    }
+
+    fin >> balance;
+    
     cout << "Your balance is " << balance << endl;
+    return balance;
 }
 
-void deleteAcount()
+void deleteAccount()
 {
     string option;
 
@@ -356,4 +334,33 @@ void deleteAcount()
     {
 
     }
+}
+
+void quit()
+{
+    cout << "Exiting Program" << endl;
+}
+
+/////////////////////////
+//////// Utility ////////
+/////////////////////////
+
+int convertStrToInt(string stringValue)
+{
+    int intValue = 0;
+    stringstream str;
+
+    for (char i : stringValue)
+    {
+        if (isdigit(i) == 0)
+        {
+            return 0;
+        }
+    }
+
+    str << stringValue;
+
+    str >> intValue;
+
+    return intValue;
 }

@@ -2,6 +2,8 @@
 
 int main()
 {
+    int accountFound = 0;
+    bool accountLogin = false;
     int menuSelection = 0;
     do
     {
@@ -10,8 +12,7 @@ int main()
     
     welcomeMessage();
    
-
-    while (menuSelection != 3)
+    while (menuSelection != 3 && !accountLogin)
     {
         do
         {
@@ -24,7 +25,8 @@ int main()
             createNewAccount();
             break;
         case 2:
-            login();
+            accountFound = login();
+            accountLogin = true;
             break;
         case 3:
             quit();
@@ -34,4 +36,44 @@ int main()
         }
     }
     
+    while (accountLogin && accountFound != 0) 
+    {
+        float balance = 0;
+        int input = 0;
+
+        do
+        {
+            displayOptions();
+
+            cin >> input;
+
+        } while (input < 1 || input > 7);
+
+        switch (input)
+        {
+        case 1:
+            balance = checkBalance(accountFound);
+            deposit(balance, accountFound);
+            break;
+        case 2: 
+            balance = checkBalance(accountFound);
+            withdraw(balance, accountFound);
+            break;
+        case 3:
+            updateInfo();
+            break;
+        case 4:
+            searchInfo();
+            break;
+        case 5: 
+            checkBalance(accountFound);
+            break;
+        case 6: 
+            deleteAccount();
+            break;
+        case 7:
+            quit();
+            break;
+        }
+    }
 }
