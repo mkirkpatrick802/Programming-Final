@@ -80,10 +80,12 @@ int mainScreen()
 
 void createNewAccount()
 {
+    stringstream str;
     string social;
     string name;
     string address;
     string phoneNumber;
+    int j = 0;
     ofstream fout;
     fout.open("accounts.dat", ios_base::app);
     if (!fout.is_open())
@@ -97,6 +99,29 @@ void createNewAccount()
     cout << "Please Input Social Security Number: ";
     cin.ignore();
     getline(cin, social);
+    for (char i : social) 
+    {
+        if (isdigit(i)) 
+        {
+            str << i;
+            j++;
+            if (j == 3) 
+            {
+                str << "-";
+            }
+            else if (j == 5)
+            {
+                str << "-";
+            }
+            else if (j == 9)
+            {
+                break;
+            }
+        }
+    }
+    str >> social;
+    j = 0;
+    str.str("");
     fout << social << endl;
 
     cout << "Please Input Your Full Name: ";
@@ -112,14 +137,41 @@ void createNewAccount()
     cout << "Please Input Your Phone Number: ";
     cin.ignore();
     getline(cin, phoneNumber);
+    for (char i : phoneNumber) // NOT WORKING AND HAVE NO FUCKING IDEA WHY
+    {
+        if (isdigit(i))
+        {
+            j++;
+            if (j == 1)
+            {
+                str << "(";
+            }
+            else if (j == 3)
+            {
+                str << ")";
+            }
+            else if (j == 6)
+            {
+                str << "-";
+            }
+
+            str << i;
+
+            if (j == 9)
+            {
+                break;
+            }
+        }
+    }
+    str >> phoneNumber;
+    j = 0;
+    str.str("");
     fout << phoneNumber << endl;
 
     fout << " " << endl;
     fout.close();
 }
 
-//Fix This
-////////////////////////////////////////////////////////////Broken////////////////
 int newAccountNumber()
 {
     int num = 0;
@@ -142,20 +194,8 @@ int newAccountNumber()
         getline(fin, line);
         if (convertStrToInt(line) != 0)
         {
-            int j;
-            for (j = 0; j < 4; j++) 
-            {
-                lastAccount[j] = convertStrToInt(line);
-            }
+            accountNumber = convertStrToInt(line) + 1;
         }
-    }
-    if (lastAccount[0].empty()) 
-    {
-        accountNumber = 1;
-    }
-    else 
-    {
-        accountNumber = convertStrToInt(lastAccount[0]);
     }
 
     ofstream fout;
