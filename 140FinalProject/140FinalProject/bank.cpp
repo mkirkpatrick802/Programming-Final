@@ -120,8 +120,6 @@ void createNewAccount()
         }
     }
     str >> social;
-    j = 0;
-    str.str("");
     fout << social << endl;
 
     cout << "Please Input Your Full Name: ";
@@ -157,15 +155,13 @@ void createNewAccount()
 
             str << i;
 
-            if (j == 9)
+            if (j == 10)
             {
                 break;
             }
         }
     }
     str >> phoneNumber;
-    j = 0;
-    str.str("");
     fout << phoneNumber << endl;
 
     fout << " " << endl;
