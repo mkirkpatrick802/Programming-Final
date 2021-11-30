@@ -97,16 +97,7 @@ void login()
 
         do
         {
-            cout << "Login succesfull, please select an option" << endl;
-            cout << endl;
-            cout << "1: Deposit" << endl;
-            cout << "2: Withdraw" << endl;
-            cout << "3: Update Info" << endl;
-            cout << "4: Serach for Info" << endl;
-            cout << "5: Check Balance" << endl;
-            cout << "6: Delete acount" << endl;
-            cout << "7: Quit" << endl;
-            cout << endl;
+            displayOptions();
             
             cin >> input;
 
@@ -122,67 +113,39 @@ void login()
         }
         else if (input == 3)
         {
-            int option;
-
-            cout << "What info do you want to change?" << endl;
-            cout << endl;
-            
-            cout << "1: Social Security Number" << endl;
-            cout << "2: Name" << endl;
-            cout << "3: Address" << endl;
-            cout << "4: Phone Number" << endl;
-            cout << "5: Quit" << endl;
-            cout << endl;
-
-            cin >> option;
+            void updateInfo();
         }
         else if (input == 4)
         {
-            int option;
-
-            cout << "What info do you wish to search for?" << endl;
-            cout << endl;
-
-            cout << "1: Social Security Number" << endl;
-            cout << "2: Name" << endl;
-            cout << "3: Address" << endl;
-            cout << "4: Phone Number" << endl;
-            cout << "5: Quit" << endl;
-            cout << endl;
-
-            cin >> option;
-
+            void searchInfo();
         }
         else if (input == 5)
         {
-            cout << "Your balance is " << balance << endl;
+            checkBalance(balance);
         }
         else if (input == 6)
         {
-            string option;
-
-            do
-            {
-                cout << "Are you sure you wish to delete you acount? y for yes n for no." << endl;
-                cin >> option;
-            } while (option != "y" || option != "Y" || option != "n" || option != "N");
-            
-
-            if (option == "y" || option == "Y")
-            {
-
-            }
-            else if (option != "n" || option != "N")
-            {
-
-            }
-
+            deleteAcount();
         }
         else if (input == 7)
         {
             quit();
         }
     }
+}
+
+void displayOptions()
+{
+    cout << "Login succesfull, please select an option" << endl;
+    cout << endl;
+    cout << "1: Deposit" << endl;
+    cout << "2: Withdraw" << endl;
+    cout << "3: Update Info" << endl;
+    cout << "4: Serach for Info" << endl;
+    cout << "5: Check Balance" << endl;
+    cout << "6: Delete acount" << endl;
+    cout << "7: Quit" << endl;
+    cout << endl;
 }
 
 void quit()
@@ -332,5 +295,65 @@ void withdraw(float & balance, string acountNum)
         fout << balance - withdrawAmount << endl;
         balance = balance - withdrawAmount;
         cout << "Your balance is now " << balance << endl;
+    }
+}
+
+void updateInfo()
+{
+    int option;
+
+    cout << "What info do you want to change?" << endl;
+    cout << endl;
+
+    cout << "1: Social Security Number" << endl;
+    cout << "2: Name" << endl;
+    cout << "3: Address" << endl;
+    cout << "4: Phone Number" << endl;
+    cout << "5: Quit" << endl;
+    cout << endl;
+
+    cin >> option;
+}
+
+void searchInfo()
+{
+    int option;
+
+    cout << "What info do you wish to search for?" << endl;
+    cout << endl;
+
+    cout << "1: Social Security Number" << endl;
+    cout << "2: Name" << endl;
+    cout << "3: Address" << endl;
+    cout << "4: Phone Number" << endl;
+    cout << "5: Quit" << endl;
+    cout << endl;
+
+    cin >> option;
+}
+
+void checkBalance(float balance)
+{
+    cout << "Your balance is " << balance << endl;
+}
+
+void deleteAcount()
+{
+    string option;
+
+    do
+    {
+        cout << "Are you sure you wish to delete you acount? y for yes n for no." << endl;
+        cin >> option;
+    } while (option != "y" || option != "Y" || option != "n" || option != "N");
+
+
+    if (option == "y" || option == "Y")
+    {
+
+    }
+    else if (option != "n" || option != "N")
+    {
+
     }
 }
