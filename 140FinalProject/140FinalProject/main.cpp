@@ -35,8 +35,10 @@ int main()
             break;
         }
     }
+
+    bool quit1 = false;
     
-    while (accountLogin && accountFound != 0) 
+    while (accountLogin && accountFound != 0 && quit1 == false) 
     {
         float balance = 0;
         int input = 0;
@@ -73,6 +75,7 @@ int main()
             break;
         case 7:
             quit();
+            quit1 = true;
             break;
         }
     }
