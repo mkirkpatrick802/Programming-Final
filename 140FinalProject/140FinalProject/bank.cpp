@@ -12,6 +12,8 @@ bool tellerLogin()
     string tellerIdActual;
     string tellerIdPassActual;
 
+    const int TELLER_WIDTH = 25;
+
     ifstream fin;
     fin.open("tellers.dat");
     if (!fin.is_open())
@@ -23,10 +25,10 @@ bool tellerLogin()
     fin >> tellerIdActual;
     fin >> tellerIdPassActual;
 
-    cout << "Enter teller ID: ";
+    cout << right << setw(TELLER_WIDTH) << "Enter teller ID: ";
     cin >> tellerIdInput;
 
-    cout << "Enter teller Password: ";
+    cout << right << setw(TELLER_WIDTH) << "Enter teller Password: ";
     cin >> tellerPassInput;
 
     if (tellerIdInput == tellerIdActual && tellerPassInput == tellerIdPassActual)
@@ -80,6 +82,8 @@ int mainScreen()
 
 void createNewAccount()
 {
+    const int CREATE_WIDTH = 40;
+
     stringstream str;
     string social;
     string name;
@@ -96,7 +100,7 @@ void createNewAccount()
 
     fout << newAccountNumber() << endl;
 
-    cout << "Please Input Social Security Number: ";
+    cout << setw(CREATE_WIDTH) << right << "Please Input Social Security Number: ";
     cin.ignore();
     getline(cin, social);
     for (char i : social) 
@@ -122,17 +126,17 @@ void createNewAccount()
     str >> social;
     fout << social << endl;
 
-    cout << "Please Input Your Full Name: ";
+    cout << setw(CREATE_WIDTH) << right << "Please Input Your Full Name: ";
     cin.ignore();
     getline(cin, name);
     fout << name << endl;
 
-    cout << "Please Input Your Address: ";
+    cout << setw(CREATE_WIDTH) << right << "Please Input Your Address: ";
     cin.ignore();
     getline(cin, address);
     fout << address << endl;
 
-    cout << "Please Input Your Phone Number: ";
+    cout << setw(CREATE_WIDTH) << right << "Please Input Your Phone Number: ";
     getline(cin, phoneNumber);
     string buildPhone;
     int p = 0;
@@ -172,6 +176,9 @@ void createNewAccount()
 
     fout << " " << endl;
     fout.close();
+
+    cout << endl;
+    cout << setw(CREATE_WIDTH) << right << "Acount Succesfully created!" << endl;
 }
 
 int newAccountNumber()
@@ -254,14 +261,16 @@ int login()
 
 void displayOptions()
 {
+    const int OPTIONS_WIDTH = 20;
+
     cout << endl;
-    cout << "1: Deposit" << endl;
-    cout << "2: Withdraw" << endl;
-    cout << "3: Update Info" << endl;
-    cout << "4: Serach for Info" << endl;
-    cout << "5: Check Balance" << endl;
-    cout << "6: Delete acount" << endl;
-    cout << "7: Quit" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "1: Deposit" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "2: Withdraw" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "3: Update Info" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "4: Serach for Info" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "5: Check Balance" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "6: Delete acount" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "7: Quit" << endl;
     cout << endl;
 }
 
