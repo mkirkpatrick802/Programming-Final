@@ -133,35 +133,41 @@ void createNewAccount()
     fout << address << endl;
 
     cout << "Please Input Your Phone Number: ";
-    cin.ignore();
     getline(cin, phoneNumber);
+    string buildPhone;
+    int p = 0;
     for (char i : phoneNumber) // NOT WORKING AND HAVE NO FUCKING IDEA WHY
     {
         if (isdigit(i))
         {
-            j++;
-            if (j == 1)
+            
+            p++;
+            if (p == 1)
             {
-                str << "(";
+                // str << "("
+                buildPhone += "(";
             }
-            else if (j == 3)
+            else if (p == 4)
             {
-                str << ")";
+                // str << ")"
+                buildPhone += ")-";
             }
-            else if (j == 6)
+            else if (p == 7)
             {
-                str << "-";
+                // str "-"
+                buildPhone += "-";
             }
 
-            str << i;
+            buildPhone += i;
 
-            if (j == 10)
+            if (p == 10)
             {
                 break;
             }
+            
         }
     }
-    str >> phoneNumber;
+    phoneNumber = buildPhone;
     fout << phoneNumber << endl;
 
     fout << " " << endl;
@@ -238,13 +244,16 @@ int login()
         cout << "Cannot find account file" << endl;
         return 0;
     }
+    else
+    {
+        cout << "Login succesfull, please select an option" << endl;
+    }
 
     return convertStrToInt(accountNum);
 }
 
 void displayOptions()
 {
-    cout << "Login succesfull, please select an option" << endl;
     cout << endl;
     cout << "1: Deposit" << endl;
     cout << "2: Withdraw" << endl;
