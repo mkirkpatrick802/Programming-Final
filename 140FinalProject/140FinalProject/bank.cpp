@@ -322,14 +322,16 @@ void updateInfo()
 {
     int option;
 
+    const int OPTIONS_WIDTH = 20;
+
     cout << "What info do you want to change?" << endl;
     cout << endl;
 
-    cout << "1: Social Security Number" << endl;
-    cout << "2: Name" << endl;
-    cout << "3: Address" << endl;
-    cout << "4: Phone Number" << endl;
-    cout << "5: Quit" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "2: Name" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "3: Address" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
     cout << endl;
 
     cin >> option;
@@ -337,16 +339,18 @@ void updateInfo()
 
 void searchInfo()
 {
+    const int OPTIONS_WIDTH = 20;
+
     int option;
 
     cout << "What info do you wish to search for?" << endl;
     cout << endl;
 
-    cout << "1: Social Security Number" << endl;
-    cout << "2: Name" << endl;
-    cout << "3: Address" << endl;
-    cout << "4: Phone Number" << endl;
-    cout << "5: Quit" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "2: Name" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "3: Address" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
     cout << endl;
 
     cin >> option;
@@ -386,7 +390,7 @@ void deleteAccount()
     }
     else if (option != "n" || option != "N")
     {
-
+        cout << "Returning to menu" << endl;
     }
 }
 
