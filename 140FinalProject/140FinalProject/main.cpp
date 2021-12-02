@@ -85,10 +85,10 @@ int main()
             withdraw(balance, accountFound);
             break;
         case 3:
-            updateInfo();
+            updateInfo(accountFound);
             break;
         case 4:
-            searchInfo();
+            searchInfo(accountFound);
             break;
         case 5: 
             checkBalance(accountFound);

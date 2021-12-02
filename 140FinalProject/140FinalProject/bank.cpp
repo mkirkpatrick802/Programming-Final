@@ -218,21 +218,6 @@ int newAccountNumber()
     return accountNumber;
 }
 
-int numberOfLines(string fileName)
-{
-    ifstream fin;
-    fin.open(fileName);
-
-    int numLines = 0;
-    string unused;
-    while (getline(fin, unused))
-    {
-        ++numLines;
-    }
-
-    return numLines;
-}
-
 ///////////////////////////////////
 //////// Login To Account ////////
 //////////////////////////////////
@@ -259,6 +244,7 @@ int login()
     }
 
     return convertStrToInt(accountNum);
+    fin.close();
 }
 
 void displayOptions()
@@ -269,7 +255,7 @@ void displayOptions()
     cout << right << setw(OPTIONS_WIDTH) << "1: Deposit" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "2: Withdraw" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "3: Update Info" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "4: Serach for Info" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "4: Search for Info" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "5: Check Balance" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "6: Delete acount" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "7: Quit" << endl;
@@ -279,13 +265,14 @@ void displayOptions()
 void deposit(float balance, int accountNum)
 {
     float depositAmount;
+    string accountName = to_string(accountNum) + ".dat";
 
     ofstream fout;
-    fout.open(to_string(accountNum) + ".dat");
+    fout.open(accountName);
 
     if (!fout.is_open())
     {
-        cout << "Failed to find deposit file" << endl;
+        cout << "Failed to find deposit file: " << accountName << endl;
     }
 
     cout << "How much do you wish to deposit?" << endl;
@@ -301,13 +288,14 @@ void deposit(float balance, int accountNum)
 void withdraw(float balance, int accountNum)
 {
     float withdrawAmount;
+    string accountName = to_string(accountNum) + ".dat";
 
     ofstream fout;
-    fout.open(to_string(accountNum) + ".dat");
+    fout.open(accountName);
 
     if (!fout.is_open())
     {
-        cout << "Failed to find deposit file" << endl;
+        cout << "Failed to find deposit file: " << accountName << endl;
     }
 
     cout << "How much do you wish to withdraw?" << endl;
@@ -322,7 +310,7 @@ void withdraw(float balance, int accountNum)
     fout.close();
 }
 
-void updateInfo()
+void updateInfo(int accountNum)
 {
     int option;
 
@@ -341,11 +329,17 @@ void updateInfo()
     cin >> option;
 }
 
-void searchInfo()
+void searchInfo(int accountNum)
 {
     const int OPTIONS_WIDTH = 20;
-
     int option;
+    string accountName = "accounts.dat";
+    string line;
+    bool accountFound = false;
+    string accountInfo[10];
+
+    ifstream fin;
+    fin.open(accountName);
 
     cout << "What info do you wish to search for?" << endl;
     cout << endl;
@@ -358,17 +352,52 @@ void searchInfo()
     cout << endl;
 
     cin >> option;
+
+    for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
+    {
+        getline(fin, line);
+        if (line == to_string(accountNum))
+        {
+            accountFound = true;
+            for (int j = 0; j < 5; j++) 
+            {
+                getline(fin, line);
+                accountInfo[j] = line;
+            }
+        }
+    }
+
+    switch (option)
+    {
+    case 1:
+        cout << accountInfo[0] << endl;
+        break;
+    case 2:
+        cout << accountInfo[1] << endl;
+        break;
+    case 3:
+        cout << accountInfo[2] << endl;
+        break;
+    case 4:
+        cout << accountInfo[3] << endl;
+        break;
+    case 5:
+        cout << accountInfo[4] << endl;
+        break;
+    }
 }
 
 float checkBalance(int accountNum)
 {
     float balance = 0;
+    string accountName = to_string(accountNum) + ".dat";
+
     ifstream fin;
-    fin.open(to_string(accountNum) + ".dat");
+    fin.open(accountName);
 
     if (!fin.is_open())
     {
-        cout << "Failed to find deposit file" << endl;
+        cout << "Failed to find deposit file: " << accountName << endl;
     }
 
     fin >> balance;
@@ -426,4 +455,19 @@ int convertStrToInt(string stringValue)
     str >> intValue;
 
     return intValue;
+}
+
+int numberOfLines(string fileName)
+{
+    ifstream fin;
+    fin.open(fileName);
+
+    int numLines = 0;
+    string unused;
+    while (getline(fin, unused))
+    {
+        ++numLines;
+    }
+
+    return numLines;
 }
