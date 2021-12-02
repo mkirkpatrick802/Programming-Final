@@ -1,3 +1,5 @@
+//Michael, John
+
 #include "bank.h"
 
 ///////////////////////
@@ -154,7 +156,7 @@ void createNewAccount()
             else if (p == 4)
             {
                 // str << ")"
-                buildPhone += ")-";
+                buildPhone += ")";
             }
             else if (p == 7)
             {
@@ -178,7 +180,7 @@ void createNewAccount()
     fout.close();
 
     cout << endl;
-    cout << setw(CREATE_WIDTH) << right << "Acount Succesfully created!" << endl;
+    cout << setw(CREATE_WIDTH) << right << "Account Successfully created!" << endl;
 }
 
 int newAccountNumber()
@@ -253,7 +255,7 @@ int login()
     }
     else
     {
-        cout << "Login succesfull, please select an option" << endl;
+        cout << "Login successfull, please select an option" << endl;
     }
 
     return convertStrToInt(accountNum);
@@ -279,7 +281,7 @@ void deposit(float balance, int accountNum)
     float depositAmount;
 
     ofstream fout;
-    fout.open(accountNum + ".dat");
+    fout.open(to_string(accountNum) + ".dat");
 
     if (!fout.is_open())
     {
@@ -293,6 +295,7 @@ void deposit(float balance, int accountNum)
     fout << balance << endl;
 
     cout << "Your balance is now " << balance << endl;
+    fout.close();
 }
 
 void withdraw(float balance, int accountNum)
@@ -300,7 +303,7 @@ void withdraw(float balance, int accountNum)
     float withdrawAmount;
 
     ofstream fout;
-    fout.open(accountNum + ".dat");
+    fout.open(to_string(accountNum) + ".dat");
 
     if (!fout.is_open())
     {
@@ -316,6 +319,7 @@ void withdraw(float balance, int accountNum)
         fout << balance << endl;
         cout << "Your balance is now " << balance << endl;
     }
+    fout.close();
 }
 
 void updateInfo()
@@ -360,7 +364,7 @@ float checkBalance(int accountNum)
 {
     float balance = 0;
     ifstream fin;
-    fin.open(accountNum + ".dat");
+    fin.open(to_string(accountNum) + ".dat");
 
     if (!fin.is_open())
     {
@@ -371,6 +375,7 @@ float checkBalance(int accountNum)
     
     cout << "Your balance is " << balance << endl;
     return balance;
+    fin.close();
 }
 
 void deleteAccount()
@@ -379,7 +384,7 @@ void deleteAccount()
 
     do
     {
-        cout << "Are you sure you wish to delete you acount? y for yes n for no." << endl;
+        cout << "Are you sure you wish to delete you account? y for yes n for no." << endl;
         cin >> option;
     } while (option != "y" || option != "Y" || option != "n" || option != "N");
 
