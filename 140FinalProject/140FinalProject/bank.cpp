@@ -408,24 +408,84 @@ float checkBalance(int accountNum)
     fin.close();
 }
 
-void deleteAccount()
+void deleteAccount(int accountNum)
 {
     string option;
 
-    do
-    {
-        cout << "Are you sure you wish to delete you account? y for yes n for no." << endl;
-        cin >> option;
-    } while (option != "y" || option != "Y" || option != "n" || option != "N");
-
-
+   
+    cout << "Are you sure you wish to delete your account? y for yes n for no." << endl;
+    cin >> option;
+    
     if (option == "y" || option == "Y")
     {
+        string accountName = "accounts.dat";
+        string line;
+        bool accountFound = false;
+        string accountInfo[10];
+        string saveInfo[10];
 
+        ifstream fin;
+        fin.open(accountName);
+
+        for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
+        {
+            
+            getline(fin, line);
+           
+
+            if (line != to_string(accountNum))
+            {
+                
+                ofstream fout;
+                fout.open("Temp.txt");
+                fout << line << endl;
+
+                for (int p = 0; p < 5; p++)
+                {
+                    getline(fin, line);
+                    fout << line << endl;
+
+                }
+                fout.close();
+            }
+            else if (line == to_string(accountNum))
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    fin.ignore(256, '\n');
+                }
+            }
+            fin.close();
+
+            ofstream fout;
+            fout.open(accountName);
+            
+            fin.open("Temp.txt");
+
+            for (int i = 0; i < numberOfLines("Temp.txt"); i++)
+            {
+                getline(fin, line);
+                fout << line << '\r';
+            }
+
+            fout.close(); 
+
+            fout.open("Temp.txt");
+
+            for (int i = 0; i < numberOfLines("Temp.txt"); i++)
+            {
+                fout << "" << endl;
+            }
+
+        }
     }
-    else if (option != "n" || option != "N")
+    else if (option == "n" || option == "N")
     {
         cout << "Returning to menu" << endl;
+    }
+    else
+    {
+        cout << "Invalid input" << endl;
     }
 }
 

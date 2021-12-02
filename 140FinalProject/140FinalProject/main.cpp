@@ -94,7 +94,7 @@ int main()
             checkBalance(accountFound);
             break;
         case 6: 
-            deleteAccount();
+            deleteAccount(accountFound);
             break;
         case 7:
             quit();

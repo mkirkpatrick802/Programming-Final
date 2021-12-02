@@ -25,4 +25,4 @@ void withdraw(float balance, int accountNum);
 void updateInfo(int accountNum);
 void searchInfo(int accountNum);
 float checkBalance(int accountNum);
-void deleteAccount();
+void deleteAccount(int accountNum);
