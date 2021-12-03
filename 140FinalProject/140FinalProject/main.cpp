@@ -95,6 +95,7 @@ int main()
             break;
         case 6: 
             deleteAccount(accountFound);
+            quit1 = true;
             break;
         case 7:
             quit();

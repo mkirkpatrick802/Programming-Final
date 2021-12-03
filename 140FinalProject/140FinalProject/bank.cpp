@@ -280,7 +280,7 @@ void deposit(float balance, int accountNum)
     cin >> depositAmount;
 
     balance = balance + depositAmount;
-    fout << balance << endl;
+    fout << setprecision(2) << fixed << balance << endl;
 
     cout << "Your balance is now " << balance << endl;
     fout.close();
@@ -305,7 +305,7 @@ void withdraw(float balance, int accountNum)
     if (withdrawAmount < balance)
     {
         balance = balance - withdrawAmount;
-        fout << balance << endl;
+        fout << setprecision(2) << fixed << balance << endl;
         cout << "Your balance is now " << balance << endl;
     }
     fout.close();
@@ -392,18 +392,19 @@ float checkBalance(int accountNum)
 {
     float balance = 0;
     string accountName = to_string(accountNum) + ".dat";
+    const int CHECK_WIDTH = 30;
 
     ifstream fin;
     fin.open(accountName);
 
     if (!fin.is_open())
     {
-        cout << "Failed to find deposit file: " << accountName << endl;
+        cout << setw(CHECK_WIDTH) << "Failed to find deposit file: " << accountName << endl;
     }
 
     fin >> balance;
     
-    cout << "Your balance is " << balance << endl;
+    cout << "Your balance is " << setw(CHECK_WIDTH) << setprecision(2) << fixed << balance << endl;
     return balance;
     fin.close();
 }
@@ -411,9 +412,9 @@ float checkBalance(int accountNum)
 void deleteAccount(int accountNum)
 {
     string option;
-
+    const int DELETE_WIDTH = 30;
    
-    cout << "Are you sure you wish to delete your account? y for yes n for no." << endl;
+    cout << setw(DELETE_WIDTH) << "Are you sure you wish to delete your account? y for yes n for no." << endl;
     cin >> option;
     
     if (option == "y" || option == "Y")
@@ -482,21 +483,26 @@ void deleteAccount(int accountNum)
             fout << "" << endl;
         }
 
+        cout << endl;
+        cout << setw(DELETE_WIDTH) << "Acount Deleted" << endl;
+        cout << endl;
         
     }
     else if (option == "n" || option == "N")
     {
-        cout << "Returning to menu" << endl;
+        cout << setw(DELETE_WIDTH) << "Returning to menu" << endl;
     }
     else
     {
-        cout << "Invalid input" << endl;
+        cout << setw(DELETE_WIDTH) << "Invalid input" << endl;
     }
 }
 
 void quit()
 {
-    cout << "Exiting Program" << endl;
+    const int QUIT_WIDTH = 30;
+    cout << endl;
+    cout << setw(QUIT_WIDTH) <<  "Exiting Program" << endl;
 }
 
 /////////////////////////
