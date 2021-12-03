@@ -427,20 +427,20 @@ void deleteAccount(int accountNum)
         ifstream fin;
         fin.open(accountName);
 
-        for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
+        for (int i = 0; i < numberOfLines(accountName); i++)
         {
-            
+
             getline(fin, line);
-           
+
 
             if (line != to_string(accountNum))
             {
-                
+
                 ofstream fout;
                 fout.open("Temp.txt");
                 fout << line << endl;
 
-                for (int p = 0; p < 5; p++)
+                for (int p = 0; p < 4; p++)
                 {
                     getline(fin, line);
                     fout << line << endl;
@@ -450,34 +450,39 @@ void deleteAccount(int accountNum)
             }
             else if (line == to_string(accountNum))
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 4; j++)
                 {
-                    fin.ignore(256, '\n');
+                    ifstream fin2;
+                    fin2.open("Delete.txt");
+                    getline(fin2, line);
+                    fin2.close();
                 }
             }
             fin.close();
 
+
             ofstream fout;
             fout.open(accountName);
-            
+
             fin.open("Temp.txt");
 
-            for (int i = 0; i < numberOfLines("Temp.txt"); i++)
+            for (int i = 0; i < 5; i++)
             {
                 getline(fin, line);
                 fout << line << '\r';
             }
-
-            fout.close(); 
-
-            fout.open("Temp.txt");
-
-            for (int i = 0; i < numberOfLines("Temp.txt"); i++)
-            {
-                fout << "" << endl;
-            }
-
+            fout.close();
         }
+             
+        ofstream fout;
+        fout.open("Temp.txt");
+
+        for (int i = 0; i < numberOfLines("Temp.txt"); i++)
+        {
+            fout << "" << endl;
+        }
+
+        
     }
     else if (option == "n" || option == "N")
     {
