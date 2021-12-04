@@ -441,7 +441,7 @@ void deleteAccount(int accountNum)
                 fout.open("Temp.txt");
                 fout << line << endl;
 
-                for (int p = 0; p < 4; p++)
+                for (int p = 0; p < 5; p++)
                 {
                     getline(fin, line);
                     fout << line << endl;
@@ -451,12 +451,9 @@ void deleteAccount(int accountNum)
             }
             else if (line == to_string(accountNum))
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 5; j++)
                 {
-                    ifstream fin2;
-                    fin2.open("Delete.txt");
-                    getline(fin2, line);
-                    fin2.close();
+                    fin.ignore(256, '\n');
                 }
             }
             fin.close();

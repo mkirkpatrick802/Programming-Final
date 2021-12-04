@@ -42,6 +42,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Temp.txt" />
-    <Text Include="Delete.txt" />
   </ItemGroup>
 </Project>
