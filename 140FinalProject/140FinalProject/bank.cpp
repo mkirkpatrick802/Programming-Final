@@ -424,61 +424,50 @@ void deleteAccount(int accountNum)
         bool accountFound = false;
         string accountInfo[10];
         string saveInfo[10];
+        string junk;
+
+        ofstream fout;
+        fout.open("Temp.txt");
+        
 
         ifstream fin;
         fin.open(accountName);
 
         for (int i = 0; i < numberOfLines(accountName); i++)
         {
-
             getline(fin, line);
+            cout << "Line: " << line << endl;
 
-
-            if (line != to_string(accountNum))
+            if (line != "")
             {
-
-                ofstream fout;
-                fout.open("Temp.txt");
-                fout << line << endl;
-
-                for (int p = 0; p < 5; p++)
+                if (line != to_string(accountNum))
                 {
-                    getline(fin, line);
                     fout << line << endl;
 
+                    for (int p = 0; p < 5; p++)
+                    {
+                        getline(fin, line);
+                        fout << line << endl;
+
+                    }
+
                 }
-                fout.close();
-            }
-            else if (line == to_string(accountNum))
-            {
-                for (int j = 0; j < 5; j++)
+                else
                 {
-                    fin.ignore(256, '\n');
+                    for (int j = 0; j < 5; j++)
+                    {
+                        getline(fin, junk);
+                    }
                 }
             }
-            fin.close();
-
-
-            ofstream fout;
-            fout.open(accountName);
-
-            fin.open("Temp.txt");
-
-            for (int i = 0; i < 5; i++)
-            {
-                getline(fin, line);
-                fout << line << '\r';
-            }
-            fout.close();
         }
-             
-        ofstream fout;
-        fout.open("Temp.txt");
 
-        for (int i = 0; i < numberOfLines("Temp.txt"); i++)
-        {
-            fout << "" << endl;
-        }
+        fout.close();
+        fin.close();
+
+        remove("accounts.dat");
+        rename("Temp.txt", "accounts.dat");
+
 
         cout << endl;
         cout << setw(DELETE_WIDTH) << "Acount Deleted" << endl;
