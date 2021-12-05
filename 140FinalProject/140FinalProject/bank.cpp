@@ -314,8 +314,17 @@ void withdraw(float balance, int accountNum)
 void updateInfo(int accountNum)
 {
     int option;
-
+    string accountName = "accounts.dat";
+    string line;
+    bool accountFound = false;
+    string accountInfo[10];
     const int OPTIONS_WIDTH = 20;
+    string newInfo;
+
+    ifstream fin;
+    fin.open(accountName);
+
+    
 
     cout << "What info do you want to change?" << endl;
     cout << endl;
@@ -328,6 +337,46 @@ void updateInfo(int accountNum)
     cout << endl;
 
     cin >> option;
+
+    for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
+    {
+        getline(fin, line);
+        if (line == to_string(accountNum))
+        {
+            accountFound = true;
+            for (int j = 0; j < 5; j++)
+            {
+                getline(fin, line);
+                accountInfo[j] = line;
+            }
+        }
+    }
+
+    switch (option)
+    {
+    case 1:
+        cout << "What do you wish to change it to?" << endl;
+        getline(cin, newInfo);
+
+        accountInfo[1] = newInfo;
+        break;
+    
+    case 2: 
+        cout << "What do you wish to change it to?" << endl;
+        getline(cin, newInfo);
+
+        accountInfo[2] = newInfo;
+        break;
+
+    case 3:
+        cout << "What do you wish to change it to?" << endl;
+        getline(cin, newInfo);
+
+        accountInfo[3] = newInfo;
+        break;
+    }
+
+    
 }
 
 void searchInfo(int accountNum)
@@ -425,6 +474,7 @@ void deleteAccount(int accountNum)
         string accountInfo[10];
         string saveInfo[10];
         string junk;
+        int ignore;
 
         ofstream fout;
         fout.open("Temp.txt");
@@ -436,8 +486,7 @@ void deleteAccount(int accountNum)
         for (int i = 0; i < numberOfLines(accountName); i++)
         {
             getline(fin, line);
-            cout << "Line: " << line << endl;
-
+ 
             if (line != "")
             {
                 if (line != to_string(accountNum))
@@ -466,7 +515,7 @@ void deleteAccount(int accountNum)
         fin.close();
 
         remove("accounts.dat");
-        rename("Temp.txt", "accounts.dat");
+        ignore = rename("Temp.txt", "accounts.dat");
 
 
         cout << endl;
