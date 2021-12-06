@@ -688,6 +688,9 @@ void deleteAccount(int accountNum)
         remove("accounts.dat");
         ignore = rename("Temp.txt", "accounts.dat");
 
+        string balanceFile = accountFound + ".dat";
+
+        int success = remove(balanceFile.c_str());
 
         cout << endl;
         cout << setw(DELETE_WIDTH) << "Acount Deleted" << endl;
