@@ -318,39 +318,26 @@ void updateInfo(int accountNum)
     string line;
     bool accountFound = false;
     string accountInfo[10];
-    const int OPTIONS_WIDTH = 20;
+    const int OPTIONS_WIDTH = 40;
     string newInfo;
 
     cout << "What info do you want to change?" << endl;
     cout << endl;
 
-    cout << right << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "2: Name" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "3: Address" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "2: Name" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "3: Address" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
     cout << endl;
 
     cin >> option;
-    /*
-    for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
-    {
-        getline(fin, line);
-        if (line == to_string(accountNum))
-        {
-            accountFound = true;
-            for (int j = 0; j < 5; j++)
-            {
-                getline(fin, line);
-                accountInfo[j] = line;
-            }
-        }
-    }
-    */
+
     switch (option)
     {
     case 1:
     {
+        cout << endl;
         cout << "What do you wish to change it to?" << endl;
         cin.ignore();
         getline(cin, newInfo);
@@ -379,55 +366,184 @@ void updateInfo(int accountNum)
             {
                 fout << accountInfo[i] << endl;
             }
-            fout << endl;
-            
+            fout << endl;   
         }
-
 
         fout.close();
         fin.close();
 
         int success = remove(accountName.c_str());
         int successRe = rename("Temp.txt", accountName.c_str());
-
-        if (success == 0)
-        {
-            cout << "Remeve is succesfull" << endl;
-        }
-
-        if (successRe == 0)
-        {
-            cout << "rename is succes" << endl;
-        }
     }
         break;
     
     case 2: 
+    {
+        cout << endl;
         cout << "What do you wish to change it to?" << endl;
+        cin.ignore();
         getline(cin, newInfo);
 
-        accountInfo[2] = newInfo;
+        ofstream fout;
+        fout.open("Temp.txt");
+        ifstream fin;
+        fin.open(accountName);
+
+        while (!fin.eof())
+        {
+            for (int i = 0; i < 5; i++)
+            {
+
+                getline(fin, accountInfo[i]);
+
+            }
+            fin.ignore();
+
+            if (convertStrToInt(accountInfo[0]) == accountNum)
+            {
+                accountInfo[2] = newInfo;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                fout << accountInfo[i] << endl;
+            }
+            fout << endl;
+        }
+
+        fout.close();
+        fin.close();
+
+        int success = remove(accountName.c_str());
+        int successRe = rename("Temp.txt", accountName.c_str());
+    }
         break;
 
+
     case 3:
+    {
+        cout << endl;
         cout << "What do you wish to change it to?" << endl;
+        cin.ignore();
         getline(cin, newInfo);
 
-        accountInfo[3] = newInfo;
+        ofstream fout;
+        fout.open("Temp.txt");
+        ifstream fin;
+        fin.open(accountName);
+
+        while (!fin.eof())
+        {
+            for (int i = 0; i < 5; i++)
+            {
+
+                getline(fin, accountInfo[i]);
+
+            }
+            fin.ignore();
+
+            if (convertStrToInt(accountInfo[0]) == accountNum)
+            {
+                accountInfo[3] = newInfo;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                fout << accountInfo[i] << endl;
+            }
+            fout << endl;
+        }
+
+        fout.close();
+        fin.close();
+
+        int success = remove(accountName.c_str());
+        int successRe = rename("Temp.txt", accountName.c_str());
+    }
         break;
     
     case 4:
+    {
+        cout << endl;
         cout << "What do you wish to change it to?" << endl;
+        cin.ignore();
         getline(cin, newInfo);
 
-        accountInfo[4] = newInfo;
+        ofstream fout;
+        fout.open("Temp.txt");
+        ifstream fin;
+        fin.open(accountName);
+
+        while (!fin.eof())
+        {
+            for (int i = 0; i < 5; i++)
+            {
+
+                getline(fin, accountInfo[i]);
+
+            }
+            fin.ignore();
+
+            if (convertStrToInt(accountInfo[0]) == accountNum)
+            {
+                accountInfo[4] = newInfo;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                fout << accountInfo[i] << endl;
+            }
+            fout << endl;
+        }
+
+        fout.close();
+        fin.close();
+
+        int success = remove(accountName.c_str());
+        int successRe = rename("Temp.txt", accountName.c_str());
+    }
         break;
 
     case 5:
+    {
+        cout << endl;
         cout << "What do you wish to change it to?" << endl;
+        cin.ignore();
         getline(cin, newInfo);
 
-        accountInfo[5] = newInfo;
+        ofstream fout;
+        fout.open("Temp.txt");
+        ifstream fin;
+        fin.open(accountName);
+
+        while (!fin.eof())
+        {
+            for (int i = 0; i < 5; i++)
+            {
+
+                getline(fin, accountInfo[i]);
+
+            }
+            fin.ignore();
+
+            if (convertStrToInt(accountInfo[0]) == accountNum)
+            {
+                accountInfo[5] = newInfo;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                fout << accountInfo[i] << endl;
+            }
+            fout << endl;
+        }
+
+        fout.close();
+        fin.close();
+
+        int success = remove(accountName.c_str());
+        int successRe = rename("Temp.txt", accountName.c_str());
+    }
         break;
     }
 
