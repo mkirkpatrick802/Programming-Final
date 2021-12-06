@@ -529,7 +529,6 @@ float checkBalance(int accountNum)
     float balance = 0;
     string accountName = "data\\" + to_string(accountNum) + ".dat";
     const int CHECK_WIDTH = 40;
-    const int CHECK_WIDTH = 40;
 
     ifstream fin;
     fin.open(accountName);
