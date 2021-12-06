@@ -463,7 +463,7 @@ void moveInfo(int option, int accountNum)
 *************************************************************************/
 void searchInfo(int accountNum)
 {
-    const int OPTIONS_WIDTH = 20;
+    const int OPTIONS_WIDTH = 40;
     int option;
     string accountName = "accounts.dat";
     string line;
@@ -528,7 +528,8 @@ float checkBalance(int accountNum)
 {
     float balance = 0;
     string accountName = "data\\" + to_string(accountNum) + ".dat";
-    const int CHECK_WIDTH = 30;
+    const int CHECK_WIDTH = 40;
+    const int CHECK_WIDTH = 40;
 
     ifstream fin;
     fin.open(accountName);
