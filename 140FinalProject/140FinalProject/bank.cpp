@@ -475,11 +475,11 @@ void searchInfo(int accountNum)
     cout << "What info do you wish to search for?" << endl;
     cout << endl;
 
-    cout << right << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "2: Name" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "3: Address" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "1: Social Security Number" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "2: Name" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "3: Address" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "4: Phone Number" << endl;
+    cout << left << setw(OPTIONS_WIDTH) << "5: Quit" << endl;
     cout << endl;
 
     cin >> option;
