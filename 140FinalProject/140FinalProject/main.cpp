@@ -28,10 +28,11 @@ int main()
     int accountFound = 0;
     bool accountLogin = false;
     int menuSelection = 0;
+
     do
     {
         bool tellerLogin();
-    } while (tellerLogin() == false);
+    } while (!tellerLogin());
     
     welcomeMessage();
    
@@ -61,7 +62,7 @@ int main()
 
     bool quit1 = false;
     
-    while (accountLogin && accountFound != 0 && quit1 == false) 
+    while (accountLogin && accountFound != 0 && !quit1)
     {
         float balance = 0;
         int input = 0;

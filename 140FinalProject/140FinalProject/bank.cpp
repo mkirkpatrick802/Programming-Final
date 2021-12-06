@@ -24,7 +24,7 @@ bool tellerLogin()
     const string TELLER_FILE = "tellers.dat";
 
     ifstream fin;
-    fin.open("TELLER_FILE");
+    fin.open(TELLER_FILE);
     if (!fin.is_open())
     {
         cout << "Teller's file cannot be found" << endl;
@@ -269,7 +269,7 @@ int login()
     cin.ignore();
 
     ifstream fin;
-    fin.open(accountNum + ".dat");
+    fin.open("data\\" + accountNum + ".dat");
     if (!fin.is_open())
     {
         cout << "Cannot find account file" << endl;
@@ -313,7 +313,7 @@ void deposit(float balance, int accountNum)
 {
     const int DECIMAL_POINTS = 2;
     float depositAmount;
-    string accountName = to_string(accountNum) + ".dat";
+    string accountName = "data\\" + to_string(accountNum) + ".dat";
 
     ofstream fout;
     fout.open(accountName);
@@ -342,7 +342,7 @@ void withdraw(float balance, int accountNum)
 {
     const int DECIMAL_POINTS = 2;
     float withdrawAmount;
-    string accountName = to_string(accountNum) + ".dat";
+    string accountName = "data\\" + to_string(accountNum) + ".dat";
 
     ofstream fout;
     fout.open(accountName);
@@ -395,7 +395,6 @@ void updateInfo(int accountNum)
     case 2: 
         moveInfo(option, accountNum);
         break;
-
 
     case 3:
         moveInfo(option, accountNum);
@@ -531,7 +530,7 @@ void searchInfo(int accountNum)
 float checkBalance(int accountNum)
 {
     float balance = 0;
-    string accountName = to_string(accountNum) + ".dat";
+    string accountName = "data\\" + to_string(accountNum) + ".dat";
     const int CHECK_WIDTH = 30;
 
     ifstream fin;
@@ -613,13 +612,14 @@ void deleteAccount(int accountNum)
         remove("accounts.dat");
         ignore = rename("Temp.txt", "accounts.dat");
 
-        string balanceFile = accountFound + ".dat";
+        string balanceFile = "data\\" + to_string(accountNum) + ".dat";
 
         int success = remove(balanceFile.c_str());
 
         cout << endl;
         cout << setw(DELETE_WIDTH) << "Account Deleted" << endl;
         cout << endl;
+        return;
         
     }
     else if (option == "n" || option == "N")
