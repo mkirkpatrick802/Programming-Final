@@ -432,11 +432,9 @@ void moveInfo(int option, int accountNum)
 
     while (!fin.eof())
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-
             getline(fin, accountInfo[i]);
-
         }
         fin.ignore();
 
@@ -445,11 +443,10 @@ void moveInfo(int option, int accountNum)
             accountInfo[option] = newInfo;
         }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             fout << accountInfo[i] << endl;
         }
-        fout << endl;
     }
 
     fout.close();
