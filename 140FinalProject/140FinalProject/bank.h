@@ -27,3 +27,4 @@ void updateInfo(int accountNum);
 void searchInfo(int accountNum);
 float checkBalance(int accountNum);
 void deleteAccount(int accountNum);
+void moveInfo(int option, int accountNum);

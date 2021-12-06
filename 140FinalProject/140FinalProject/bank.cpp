@@ -1,11 +1,16 @@
 //Michael, John
-// yo
 
 #include "bank.h"
 
 ///////////////////////
 //////// START ////////
 ///////////////////////
+
+/*      Purpose: convert a string to double
+*       Pre: the string to be converted in stored in stringValue
+*       Post: The numeric value for the given string in doubleValue and true if the string can be converted into double and false if the string cannot be converted into double
+* 
+*************************************************************************/
 
 bool tellerLogin()
 {
@@ -86,6 +91,13 @@ int mainScreen()
 void createNewAccount()
 {
     const int CREATE_WIDTH = 40;
+    const int SOCIAL_FORMAT_1 = 3;
+    const int SOCIAL_FORMAT_2 = 5;
+    const int SOCIAL_FORMAT_3 = 9;
+    const int PHONE_FORMAT_1 = 1;
+    const int PHONE_FORMAT_2 = 4;
+    const int PHONE_FORMAT_3 = 7;
+    const int PHONE_FORMAT_4 = 10;
 
     stringstream str;
     string social;
@@ -93,6 +105,7 @@ void createNewAccount()
     string address;
     string phoneNumber;
     int j = 0;
+
     ofstream fout;
     fout.open("accounts.dat", ios_base::app);
     if (!fout.is_open())
@@ -112,15 +125,15 @@ void createNewAccount()
         {
             str << i;
             j++;
-            if (j == 3) 
+            if (j == SOCIAL_FORMAT_1)
             {
                 str << "-";
             }
-            else if (j == 5)
+            else if (j == SOCIAL_FORMAT_2)
             {
                 str << "-";
             }
-            else if (j == 9)
+            else if (j == SOCIAL_FORMAT_3)
             {
                 break;
             }
@@ -143,31 +156,28 @@ void createNewAccount()
     getline(cin, phoneNumber);
     string buildPhone;
     int p = 0;
-    for (char i : phoneNumber) // NOT WORKING AND HAVE NO FUCKING IDEA WHY
+    for (char i : phoneNumber)
     {
         if (isdigit(i))
         {
             
             p++;
-            if (p == 1)
+            if (p == PHONE_FORMAT_1)
             {
-                // str << "("
                 buildPhone += "(";
             }
-            else if (p == 4)
+            else if (p == PHONE_FORMAT_2)
             {
-                // str << ")"
                 buildPhone += ")";
             }
-            else if (p == 7)
+            else if (p == PHONE_FORMAT_3)
             {
-                // str "-"
                 buildPhone += "-";
             }
 
             buildPhone += i;
 
-            if (p == 10)
+            if (p == PHONE_FORMAT_4)
             {
                 break;
             }
@@ -186,6 +196,8 @@ void createNewAccount()
 
 int newAccountNumber()
 {
+    const int NEXT_ACCOUNT = 1;
+    const int NOT_DIGITS = 0;
     int num = 0;
     string lastAccount[6];
     int accountNumber = 1;
@@ -204,15 +216,14 @@ int newAccountNumber()
     {
         string line;
         getline(fin, line);
-        if (convertStrToInt(line) != 0)
+        if (convertStrToInt(line) != NOT_DIGITS)
         {
-            accountNumber = convertStrToInt(line) + 1;
+            accountNumber = convertStrToInt(line) + NEXT_ACCOUNT;
         }
     }
 
     ofstream fout;
-    fout.open(to_string(accountNumber) + ".dat");
-    fout << STARTING_BALANCE;
+    fout.open("data\\" + to_string(accountNumber) + ".dat");
 
     fout.close();
     fin.close();
@@ -258,13 +269,14 @@ void displayOptions()
     cout << right << setw(OPTIONS_WIDTH) << "3: Update Info" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "4: Search for Info" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "5: Check Balance" << endl;
-    cout << right << setw(OPTIONS_WIDTH) << "6: Delete acount" << endl;
+    cout << right << setw(OPTIONS_WIDTH) << "6: Delete account" << endl;
     cout << right << setw(OPTIONS_WIDTH) << "7: Quit" << endl;
     cout << endl;
 }
 
 void deposit(float balance, int accountNum)
 {
+    const int DECIMAL_POINTS = 2;
     float depositAmount;
     string accountName = to_string(accountNum) + ".dat";
 
@@ -280,7 +292,7 @@ void deposit(float balance, int accountNum)
     cin >> depositAmount;
 
     balance = balance + depositAmount;
-    fout << setprecision(2) << fixed << balance << endl;
+    fout << setprecision(DECIMAL_POINTS) << fixed << balance << endl;
 
     cout << "Your balance is now " << balance << endl;
     fout.close();
@@ -288,6 +300,7 @@ void deposit(float balance, int accountNum)
 
 void withdraw(float balance, int accountNum)
 {
+    const int DECIMAL_POINTS = 2;
     float withdrawAmount;
     string accountName = to_string(accountNum) + ".dat";
 
@@ -305,7 +318,7 @@ void withdraw(float balance, int accountNum)
     if (withdrawAmount < balance)
     {
         balance = balance - withdrawAmount;
-        fout << setprecision(2) << fixed << balance << endl;
+        fout << setprecision(DECIMAL_POINTS) << fixed << balance << endl;
         cout << "Your balance is now " << balance << endl;
     }
     fout.close();
@@ -314,12 +327,7 @@ void withdraw(float balance, int accountNum)
 void updateInfo(int accountNum)
 {
     int option;
-    string accountName = "accounts.dat";
-    string line;
-    bool accountFound = false;
-    string accountInfo[10];
     const int OPTIONS_WIDTH = 40;
-    string newInfo;
 
     cout << "What info do you want to change?" << endl;
     cout << endl;
@@ -336,218 +344,70 @@ void updateInfo(int accountNum)
     switch (option)
     {
     case 1:
-    {
-        cout << endl;
-        cout << "What do you wish to change it to?" << endl;
-        cin.ignore();
-        getline(cin, newInfo);
-
-        ofstream fout;
-        fout.open("Temp.txt");
-        ifstream fin;
-        fin.open(accountName);
-
-        while (!fin.eof())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                
-                getline(fin, accountInfo[i]);
-                
-            }
-            fin.ignore();
-            
-            if (convertStrToInt(accountInfo[0]) == accountNum)
-            {
-                accountInfo[1] = newInfo;  
-            }
-  
-            for (int i = 0; i < 5; i++)
-            {
-                fout << accountInfo[i] << endl;
-            }
-            fout << endl;   
-        }
-
-        fout.close();
-        fin.close();
-
-        int success = remove(accountName.c_str());
-        int successRe = rename("Temp.txt", accountName.c_str());
-    }
+        moveInfo(option, accountNum);
         break;
     
     case 2: 
-    {
-        cout << endl;
-        cout << "What do you wish to change it to?" << endl;
-        cin.ignore();
-        getline(cin, newInfo);
-
-        ofstream fout;
-        fout.open("Temp.txt");
-        ifstream fin;
-        fin.open(accountName);
-
-        while (!fin.eof())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-
-                getline(fin, accountInfo[i]);
-
-            }
-            fin.ignore();
-
-            if (convertStrToInt(accountInfo[0]) == accountNum)
-            {
-                accountInfo[2] = newInfo;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                fout << accountInfo[i] << endl;
-            }
-            fout << endl;
-        }
-
-        fout.close();
-        fin.close();
-
-        int success = remove(accountName.c_str());
-        int successRe = rename("Temp.txt", accountName.c_str());
-    }
+        moveInfo(option, accountNum);
         break;
 
 
     case 3:
-    {
-        cout << endl;
-        cout << "What do you wish to change it to?" << endl;
-        cin.ignore();
-        getline(cin, newInfo);
-
-        ofstream fout;
-        fout.open("Temp.txt");
-        ifstream fin;
-        fin.open(accountName);
-
-        while (!fin.eof())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-
-                getline(fin, accountInfo[i]);
-
-            }
-            fin.ignore();
-
-            if (convertStrToInt(accountInfo[0]) == accountNum)
-            {
-                accountInfo[3] = newInfo;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                fout << accountInfo[i] << endl;
-            }
-            fout << endl;
-        }
-
-        fout.close();
-        fin.close();
-
-        int success = remove(accountName.c_str());
-        int successRe = rename("Temp.txt", accountName.c_str());
-    }
+        moveInfo(option, accountNum);
         break;
     
     case 4:
-    {
-        cout << endl;
-        cout << "What do you wish to change it to?" << endl;
-        cin.ignore();
-        getline(cin, newInfo);
-
-        ofstream fout;
-        fout.open("Temp.txt");
-        ifstream fin;
-        fin.open(accountName);
-
-        while (!fin.eof())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-
-                getline(fin, accountInfo[i]);
-
-            }
-            fin.ignore();
-
-            if (convertStrToInt(accountInfo[0]) == accountNum)
-            {
-                accountInfo[4] = newInfo;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                fout << accountInfo[i] << endl;
-            }
-            fout << endl;
-        }
-
-        fout.close();
-        fin.close();
-
-        int success = remove(accountName.c_str());
-        int successRe = rename("Temp.txt", accountName.c_str());
-    }
+        moveInfo(option, accountNum);
         break;
 
     case 5:
-    {
-        cout << endl;
-        cout << "What do you wish to change it to?" << endl;
-        cin.ignore();
-        getline(cin, newInfo);
-
-        ofstream fout;
-        fout.open("Temp.txt");
-        ifstream fin;
-        fin.open(accountName);
-
-        while (!fin.eof())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-
-                getline(fin, accountInfo[i]);
-
-            }
-            fin.ignore();
-
-            if (convertStrToInt(accountInfo[0]) == accountNum)
-            {
-                accountInfo[5] = newInfo;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                fout << accountInfo[i] << endl;
-            }
-            fout << endl;
-        }
-
-        fout.close();
-        fin.close();
-
-        int success = remove(accountName.c_str());
-        int successRe = rename("Temp.txt", accountName.c_str());
-    }
+        moveInfo(option, accountNum);
         break;
     }
+}
 
-    
+void moveInfo(int option, int accountNum) 
+{
+    string accountName = "accounts.dat";
+    string newInfo;
+    string accountInfo[10];
+    cout << endl;
+    cout << "What do you wish to change it to?" << endl;
+    cin.ignore();
+    getline(cin, newInfo);
+
+    ofstream fout;
+    fout.open("Temp.txt");
+    ifstream fin;
+    fin.open(accountName);
+
+    while (!fin.eof())
+    {
+        for (int i = 0; i < 5; i++)
+        {
+
+            getline(fin, accountInfo[i]);
+
+        }
+        fin.ignore();
+
+        if (convertStrToInt(accountInfo[0]) == accountNum)
+        {
+            accountInfo[option] = newInfo;
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            fout << accountInfo[i] << endl;
+        }
+        fout << endl;
+    }
+
+    fout.close();
+    fin.close();
+
+    int success = remove(accountName.c_str());
+    int successRe = rename("Temp.txt", accountName.c_str());
 }
 
 void searchInfo(int accountNum)
@@ -693,7 +553,7 @@ void deleteAccount(int accountNum)
         int success = remove(balanceFile.c_str());
 
         cout << endl;
-        cout << setw(DELETE_WIDTH) << "Acount Deleted" << endl;
+        cout << setw(DELETE_WIDTH) << "Account Deleted" << endl;
         cout << endl;
         
     }
