@@ -321,11 +321,6 @@ void updateInfo(int accountNum)
     const int OPTIONS_WIDTH = 20;
     string newInfo;
 
-    ifstream fin;
-    fin.open(accountName);
-
-    
-
     cout << "What info do you want to change?" << endl;
     cout << endl;
 
@@ -337,7 +332,7 @@ void updateInfo(int accountNum)
     cout << endl;
 
     cin >> option;
-
+    /*
     for (int i = 0; i < numberOfLines(accountName) && !accountFound; i++)
     {
         getline(fin, line);
@@ -351,14 +346,60 @@ void updateInfo(int accountNum)
             }
         }
     }
-
+    */
     switch (option)
     {
     case 1:
+    {
         cout << "What do you wish to change it to?" << endl;
+        cin.ignore();
         getline(cin, newInfo);
 
-        accountInfo[1] = newInfo;
+        ofstream fout;
+        fout.open("Temp.txt");
+        ifstream fin;
+        fin.open(accountName);
+
+        while (!fin.eof())
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                
+                getline(fin, accountInfo[i]);
+                
+            }
+            fin.ignore();
+            
+            if (convertStrToInt(accountInfo[0]) == accountNum)
+            {
+                accountInfo[1] = newInfo;  
+            }
+  
+            for (int i = 0; i < 5; i++)
+            {
+                fout << accountInfo[i] << endl;
+            }
+            fout << endl;
+            
+        }
+
+
+        fout.close();
+        fin.close();
+
+        int success = remove(accountName.c_str());
+        int successRe = rename("Temp.txt", accountName.c_str());
+
+        if (success == 0)
+        {
+            cout << "Remeve is succesfull" << endl;
+        }
+
+        if (successRe == 0)
+        {
+            cout << "rename is succes" << endl;
+        }
+    }
         break;
     
     case 2: 
@@ -373,6 +414,20 @@ void updateInfo(int accountNum)
         getline(cin, newInfo);
 
         accountInfo[3] = newInfo;
+        break;
+    
+    case 4:
+        cout << "What do you wish to change it to?" << endl;
+        getline(cin, newInfo);
+
+        accountInfo[4] = newInfo;
+        break;
+
+    case 5:
+        cout << "What do you wish to change it to?" << endl;
+        getline(cin, newInfo);
+
+        accountInfo[5] = newInfo;
         break;
     }
 
