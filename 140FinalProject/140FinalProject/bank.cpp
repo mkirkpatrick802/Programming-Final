@@ -159,7 +159,6 @@ void createNewAccount()
     fout << social << endl;
 
     cout << setw(CREATE_WIDTH) << right << "Please Input Your Full Name: ";
-    cin.ignore();
     getline(cin, name);
     fout << name << endl;
 
