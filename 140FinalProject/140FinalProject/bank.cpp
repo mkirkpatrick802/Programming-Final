@@ -6,9 +6,9 @@
 //////// START ////////
 ///////////////////////
 
-/*      Purpose: convert a string to double
-*       Pre: the string to be converted in stored in stringValue
-*       Post: The numeric value for the given string in doubleValue and true if the string can be converted into double and false if the string cannot be converted into double
+/*      Purpose: Allow the teller to login into the system
+*       Pre: Input from the user
+*       Post: Whether or not the teller is allowed to login into the system
 * 
 *************************************************************************/
 
@@ -21,9 +21,10 @@ bool tellerLogin()
     string tellerIdPassActual;
 
     const int TELLER_WIDTH = 25;
+    const string TELLER_FILE = "tellers.dat";
 
     ifstream fin;
-    fin.open("tellers.dat");
+    fin.open("TELLER_FILE");
     if (!fin.is_open())
     {
         cout << "Teller's file cannot be found" << endl;
@@ -51,6 +52,11 @@ bool tellerLogin()
     fin.close();
 }
 
+/*      Purpose: Displays a welcome message to the user
+*       Pre: Teller must have logged in
+*       Post: outputs text to the console
+*
+*************************************************************************/
 void welcomeMessage()
 {
     cout << endl;
@@ -59,6 +65,11 @@ void welcomeMessage()
     cout << endl;
 }
 
+/*      Purpose: Displays options to the teller on what to do
+*       Pre: Teller must be loged in
+*       Post: gets the chosen option from the user and uses it to show next function
+*
+*************************************************************************/
 int mainScreen()
 {
     int const MAIN_MENU_WIDTH = 10;
@@ -88,6 +99,11 @@ int mainScreen()
 //////// Create Accounts ////////
 /////////////////////////////////
 
+/*      Purpose: Creates acount new account data and outputs them to the accounts.dat fil correctly formatted
+*       Pre: Teller must have chosesen to make new accounts and accounts.dat file must exist
+*       Post: creates a correctly formatted accounts and outputs it to the accounts.dat file
+*
+*************************************************************************/
 void createNewAccount()
 {
     const int CREATE_WIDTH = 40;
@@ -194,6 +210,11 @@ void createNewAccount()
     cout << setw(CREATE_WIDTH) << right << "Account Successfully created!" << endl;
 }
 
+/*      Purpose: Creates a new an unique account number for each account made
+*       Pre: create account function must be called
+*       Post: outputs a new accounts number
+*
+*************************************************************************/
 int newAccountNumber()
 {
     const int NEXT_ACCOUNT = 1;
@@ -234,7 +255,11 @@ int newAccountNumber()
 //////// Login To Account ////////
 //////////////////////////////////
 
-
+/*      Purpose: Allows the teller to log users in that already have accounts
+*       Pre: account must already have been made
+*       Post: logs into an account and allows the options for that account to be displayed
+*
+*************************************************************************/
 int login()
 {
     string accountNum;
@@ -259,6 +284,11 @@ int login()
     fin.close();
 }
 
+/*      Purpose: displays the options for the teller on what to do when logged in
+*       Pre: user must be logged in
+*       Post: text showing what options are avalible
+*
+*************************************************************************/
 void displayOptions()
 {
     const int OPTIONS_WIDTH = 20;
@@ -274,6 +304,11 @@ void displayOptions()
     cout << endl;
 }
 
+/*      Purpose: Allows user to deposit money to their balance file, also needs the balance from the balance file and the acount number
+*       Pre: user must be logged in and have selected the deposit option from the menu
+*       Post: changes the user's balacne based on how much money is deposited
+*
+*************************************************************************/
 void deposit(float balance, int accountNum)
 {
     const int DECIMAL_POINTS = 2;
@@ -298,6 +333,11 @@ void deposit(float balance, int accountNum)
     fout.close();
 }
 
+/*      Purpose: Allows the user to withdraw money from their balance file
+*       Pre: user must be logged in and have selected the withdraw option, also needs the balance from the balance file and the acount number
+*       Post: withdraws money from the user's balacne file based on what the user asked for
+*
+*************************************************************************/
 void withdraw(float balance, int accountNum)
 {
     const int DECIMAL_POINTS = 2;
@@ -324,6 +364,11 @@ void withdraw(float balance, int accountNum)
     fout.close();
 }
 
+/*      Purpose: Lets the user change their info in the accounts.dat file
+*       Pre: User must be logged in and have selected this option, also the account num is needed
+*       Post: Whether or not the teller is allowed to login into the system
+*
+*************************************************************************/
 void updateInfo(int accountNum)
 {
     int option;
@@ -366,6 +411,11 @@ void updateInfo(int accountNum)
     }
 }
 
+/*      Purpose: Moves the user's updated data to a new file the renames that file to accounts.dat
+*       Pre: needs the account num and the what data the user chose to change as well as input on what to change it to
+*       Post: Creates a new accounts.dat file with the updated info in it
+*
+*************************************************************************/
 void moveInfo(int option, int accountNum) 
 {
     string accountName = "accounts.dat";
@@ -410,6 +460,11 @@ void moveInfo(int option, int accountNum)
     int successRe = rename("Temp.txt", accountName.c_str());
 }
 
+/*      Purpose: Lets the user search for info in the accounts.dat file
+*       Pre: User must be logged in and have selected this option, also the account num is needed. Input on what info to display is also needed
+*       Post: shows the user the data they asked to veiw 
+*
+*************************************************************************/
 void searchInfo(int accountNum)
 {
     const int OPTIONS_WIDTH = 20;
@@ -468,6 +523,11 @@ void searchInfo(int accountNum)
     }
 }
 
+/*      Purpose: Lets the user check their balance from their balance file
+*       Pre: User must be logged in and have selected this option, also the account num is needed
+*       Post: displays the user's balance and stores it in the balance variable
+*
+*************************************************************************/
 float checkBalance(int accountNum)
 {
     float balance = 0;
@@ -489,6 +549,11 @@ float checkBalance(int accountNum)
     fin.close();
 }
 
+/*      Purpose: Lets the user delete their info from the accounts.dat file and remove their balance file
+*       Pre: User must be logged in and have selected this option, also the account num is needed
+*       Post: deletes the user's info from accounts.dat and removes the balance file
+*
+*************************************************************************/
 void deleteAccount(int accountNum)
 {
     string option;
@@ -567,6 +632,11 @@ void deleteAccount(int accountNum)
     }
 }
 
+/*      Purpose: exits the program
+*       Pre: User must be logged in and have selected this option, 
+*       Post: exits the program, returns nothing
+*
+*************************************************************************/
 void quit()
 {
     const int QUIT_WIDTH = 30;
@@ -578,6 +648,12 @@ void quit()
 //////// Utility ////////
 /////////////////////////
 
+/*** Purpose: convert a string to double
+* Pre: the string to be converted in stored in stringValue
+* Post: The numeric value for the given string in doubleValue and
+* true if the string can be converted into double and false if
+* the string cannot be converted into double
+ *************************************************************************/
 int convertStrToInt(string stringValue)
 {
     int intValue = 0;
@@ -598,6 +674,11 @@ int convertStrToInt(string stringValue)
     return intValue;
 }
 
+/*      Purpose: checks how many lines are in a particular file
+*       Pre: needs the name of the file
+*       Post: returns the number of lines in the file
+*
+*************************************************************************/
 int numberOfLines(string fileName)
 {
     ifstream fin;
